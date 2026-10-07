@@ -4,7 +4,8 @@ fn test_parse_rules_and_important() {
 	sheet := parse('body, html { margin: 0; color: rgb(1, 2, 3) } a:hover { text-decoration: none !important; }')
 	assert sheet.rules.len == 2
 	assert sheet.rules[0].selectors == ['body', 'html']
-	assert sheet.rules[0].property('margin') or { panic('margin missing') }.value == '0'
+	margin := sheet.rules[0].property('margin') or { panic('margin missing') }
+	assert margin.value == '0'
 	dec := sheet.rules[1].property('text-decoration') or { panic('property missing') }
 	assert dec.value == 'none'
 	assert dec.important
